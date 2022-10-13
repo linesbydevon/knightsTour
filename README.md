@@ -43,6 +43,7 @@ I haven't fully thought this out but I'm thinking I can 1) add event listeners t
 This matrix makes the movements more intuitive (I hope). For instance, if a user clicks on `arr[2][2]` then they have 8 potential moves: `[0][1], [0][3], [1][0], [1][4], [3][0],[3][4], [4][1],[4][3]` and of these the program will have to loop through to determine if they're disabled.
 
 This is better visualized in the attached image below.
+
 ![Visualization of board as nested arrays](./whiteboarding/img/matrixVisualization.png)
 
 ## TRELLO BOARD

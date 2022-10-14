@@ -7,7 +7,11 @@ class gameBoard{
     this.size = 0;
     this.squares = [];
     this.gameboard = document.querySelector("#domGame");
-    this.domButtons = null;
+    this.domButtons = [];
+    this.validMoves = [];
+    this.invalidMoves = [];
+    //https://alephnode.io/07-event-handler-binding/ to fix "this" being read as referring to event object instead of class scope on event
+    this.boundValidMoves = this.returnValidMoves.bind(this);
   }
   //evaluates the chosen level and sets the size of the gameboard
   setSize(){
@@ -72,12 +76,53 @@ class gameBoard{
         
       }
     })
-    this.domButtons = document.querySelectorAll('#domGame button')
+    this.domButtons = document.querySelectorAll('#domGame button');
+  }
+  returnValidMoves(e){
+    this.validMoves = [];
+    this.invalidMoves.forEach(elem=>elem.removeAttribute('disabled'));
+    console.log('clicked');
+    let x = parseInt(e.currentTarget.dataset.x);
+    console.log(x);
+    let y = parseInt(e.currentTarget.dataset.y);
+    console.log(y);
+    console.log(this.domButtons)
+    let domButtons = Array.from(this.domButtons)
+    let knightMoves = domButtons.reduce((a,elem)=>{
+        if(
+          parseInt(elem.dataset.x) === x-2 && parseInt(elem.dataset.y) === y-1 ||
+          parseInt(elem.dataset.x) === x-2 && parseInt(elem.dataset.y) === y+1 ||
+          parseInt(elem.dataset.x) === x-1 && parseInt(elem.dataset.y) === y-2 ||
+          parseInt(elem.dataset.x) === x-1 && parseInt(elem.dataset.y) === y+2 ||
+          parseInt(elem.dataset.x) === x+2 && parseInt(elem.dataset.y) === y-1 ||
+          parseInt(elem.dataset.x) === x+2 && parseInt(elem.dataset.y) === y+1 ||
+          parseInt(elem.dataset.x) === x+1 && parseInt(elem.dataset.y) === y-2 ||
+          parseInt(elem.dataset.x) === x+1 && parseInt(elem.dataset.y) === y+2
+          ){
+            a[0].push(elem);
+          }else{
+            a[1].push(elem);
+          }
+          return a;   
+      },[[],[]]
+    );
+    e.currentTarget.dataset.x='played';
+    e.currentTarget.dataset.y='played';
+    this.validMoves = knightMoves[0];
+    this.invalidMoves = knightMoves[1];
+    this.disableInvalid();
+  }
+  disableInvalid(){
+    this.invalidMoves.forEach(elem=>elem.setAttribute('disabled',''))
+  }
+  setSquareListeners(){
+    this.domButtons.forEach(elem=>elem.addEventListener('click',this.boundValidMoves))
   }
 
 }
 
-const game = new gameBoard("level 6");
+const game = new gameBoard("level 1");
 game.setSize();
 game.createColumns();
+game.setSquareListeners();
 

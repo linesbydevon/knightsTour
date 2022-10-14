@@ -16,3 +16,7 @@
   display: block;
   padding: 2px;
 }
+
+[data-x="played"]{
+  background: black;
+}

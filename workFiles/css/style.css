@@ -1,0 +1,18 @@
+#domGame{
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+}
+
+.column{
+  display: flex;
+  flex-direction: column-reverse;
+  flex-grow: 1;
+}
+
+.column button{
+  flex-grow: 1;
+  aspect-ratio: 1;
+  display: block;
+  padding: 2px;
+}

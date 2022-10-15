@@ -5,6 +5,7 @@ class gameBoard{
     this.level= level;
     this.levels = ["level 1","level 2","level 3","level 4","level 5","level 6"]
     this.size = 0;
+    this.move = 0;
     this.squares = [];
     this.gameboard = document.querySelector("#domGame");
     this.domButtons = [];
@@ -69,7 +70,7 @@ class gameBoard{
         //create buttons and append them to columns (starting from [0] in columns array, appending each item in child array in squares starting at [0])
         let newButton = document.createElement('button');
         newButton.setAttribute('id',`${elem[i].rf}`);
-        newButton.innerText= `${elem[i].rf}`;
+        newButton.innerHTML= `<span>${elem[i].rf}</span>`;
         newButton.setAttribute('data-x',elem[i].x);
         newButton.setAttribute('data-y',elem[i].y);
         columns[this.squares.indexOf(elem)].appendChild(newButton);
@@ -79,6 +80,7 @@ class gameBoard{
     this.domButtons = document.querySelectorAll('#domGame button');
   }
   returnValidMoves(e){
+    this.move++;
     this.validMoves = [];
     this.invalidMoves.forEach(elem=>elem.removeAttribute('disabled'));
     console.log('clicked');
@@ -106,6 +108,8 @@ class gameBoard{
           return a;   
       },[[],[]]
     );
+    e.currentTarget.setAttribute("data-order", this.move)
+    e.currentTarget.innerHTML = `<span>${this.move}</span>`;
     e.currentTarget.dataset.x='played';
     e.currentTarget.dataset.y='played';
     this.validMoves = knightMoves[0];
@@ -121,8 +125,18 @@ class gameBoard{
 
 }
 
-const game = new gameBoard("level 1");
-game.setSize();
-game.createColumns();
-game.setSquareListeners();
+ 
+
+const makeGame = () =>{
+  document.querySelector("#domGame").innerHTML = '';
+  let game = new gameBoard(document.querySelector("[name='difficultySelector']").value)
+  game.setSize();
+  game.createColumns();
+  game.setSquareListeners()
+}
+
+makeGame();
+document.querySelector("#resetBTN").addEventListener('click',makeGame);
+document.querySelector("[name='difficultySelector']").addEventListener('change',makeGame);
+
 

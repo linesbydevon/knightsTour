@@ -1,22 +1,48 @@
+
+*{
+  box-sizing: border-box;
+  font-family: monospace;
+}
+
 #domGame{
   width: 100%;
   max-width: 600px;
   display: flex;
+  font-family: monospace;
+  aspect-ratio: 1;
 }
 
 .column{
   display: flex;
   flex-direction: column-reverse;
   flex-grow: 1;
+  flex-shrink: 1;
 }
 
 .column button{
   flex-grow: 1;
-  aspect-ratio: 1;
+  flex-shrink: 1;
+  aspect-ratio: 1 !important;
   display: block;
-  padding: 2px;
+  padding: 1px;
+  position: relative;
+  border-radius: 10px;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.column button span{
+  display: block;
+  width: 100%;
+  position: absolute;
+  text-align: center;
+  bottom: 46%;
+  line-height: 0;
 }
 
 [data-x="played"]{
   background: black;
+}
+[data-order]{
+  color: white;
 }

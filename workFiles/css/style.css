@@ -46,3 +46,10 @@
 [data-order]{
   color: white;
 }
+
+.win{
+  background: green;
+}
+.lose{
+  background: red;
+}

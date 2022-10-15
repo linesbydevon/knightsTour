@@ -6,6 +6,7 @@ class gameBoard{
     this.levels = ["level 1","level 2","level 3","level 4","level 5","level 6"]
     this.size = 0;
     this.move = 0;
+    this.moves = [];
     this.squares = [];
     this.gameboard = document.querySelector("#domGame");
     this.domButtons = [];
@@ -50,7 +51,7 @@ class gameBoard{
       }
     )
     let columns = document.querySelectorAll(".column");
-    console.log(columns)
+    // console.log(columns)
     this.squares.forEach(elem=>{
       for (let i=0;i<this.squares.length;i++){
         //elem.push(i)
@@ -83,12 +84,12 @@ class gameBoard{
     this.move++;
     this.validMoves = [];
     this.invalidMoves.forEach(elem=>elem.removeAttribute('disabled'));
-    console.log('clicked');
+    // console.log('clicked');
     let x = parseInt(e.currentTarget.dataset.x);
-    console.log(x);
+    // console.log(x);
     let y = parseInt(e.currentTarget.dataset.y);
-    console.log(y);
-    console.log(this.domButtons)
+    // console.log(y);
+    // console.log(this.domButtons)
     let domButtons = Array.from(this.domButtons)
     let knightMoves = domButtons.reduce((a,elem)=>{
         if(
@@ -112,9 +113,19 @@ class gameBoard{
     e.currentTarget.innerHTML = `<span>${this.move}</span>`;
     e.currentTarget.dataset.x='played';
     e.currentTarget.dataset.y='played';
+    this.moves.push(e.currentTarget);
     this.validMoves = knightMoves[0];
     this.invalidMoves = knightMoves[1];
     this.disableInvalid();
+    this.isGameOver();
+  }
+  isGameOver(){
+    if (this.move === this.size){
+      this.moves.forEach(elem=>elem.setAttribute('class','win'))
+    }
+    else if (this.validMoves.length===0){
+      this.moves.forEach(elem=>elem.setAttribute('class','lose'))
+    }
   }
   disableInvalid(){
     this.invalidMoves.forEach(elem=>elem.setAttribute('disabled',''))
@@ -124,8 +135,6 @@ class gameBoard{
   }
 
 }
-
- 
 
 const makeGame = () =>{
   document.querySelector("#domGame").innerHTML = '';

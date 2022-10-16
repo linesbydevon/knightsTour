@@ -4,9 +4,64 @@
   font-family: monospace;
 }
 
+html{
+  --main: 43,41,38;
+  --tint1: 74,72,69;
+  --tint2: 104,105,103;
+  --tint3: 141,140,138;
+  --tint4: 178,177,176;
+  --tint5: 216,215,215;
+  --tint6: 252,252,252;
+  --gradientColor1:198,255,221;
+  --gradientColor2:251,215,134;
+  --gradientColor3:247,121,125;
+  background: rgba(var(--main), 1);
+  color: rgba(var(--tint6),1);
+}
+
+body{
+
+}
+
+#gradientBorder{
+  background: conic-gradient(
+    rgba(var(--gradientColor1,1)),
+    rgba(var(--gradientColor2,1)),
+    rgba(var(--gradientColor3,1)),
+    rgba(var(--gradientColor1,1))
+    );
+  padding: 4px;
+  max-width: 638px;
+  border-radius: 24px;
+  box-shadow: 0 0 15px 15px rgba(0,0,0,0.4);
+}
+
+#game{
+  background: rgba(var(--main), 1);
+  padding: 32px 8px;
+  border-radius: 20px;
+}
+
+#controls{
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 24px;
+}
+
+@keyframes appear{
+  from {
+    opacity: 0;
+  width: 0;
+}
+  to {
+    opacity: 1;
+    width: 100%;
+}
+}
+
 #domGame{
   width: 100%;
-  max-width: 600px;
+  max-width: 630px;
   display: flex;
   font-family: monospace;
   aspect-ratio: 1;
@@ -26,9 +81,28 @@
   display: block;
   padding: 1px;
   position: relative;
-  border-radius: 10px;
-  border: 1px solid black;
   cursor: pointer;
+  transition: background .6s ease, color .6s ease;
+  color: rgba(var(--main), 1);
+  border: 1px solid rgba(var(--main),1);
+  border-radius: 10%;
+  background:rgba(var(--tint3), 1);
+  opacity: 0;
+  animation: appear .9s ease .1s forwards;
+  margin: 0 auto;
+}
+
+.column [disabled]{
+  background: rgba(var(--tint2),1);
+  border: 1px solid rgba(var(--main),1);
+}
+
+.column [data-x="played"]{
+  background:rgba(var(--main), 1);
+  border-color: rgba(var(--main), 1);
+}
+.column [data-order]{
+  color: white;
 }
 
 .column button span{
@@ -40,16 +114,11 @@
   line-height: 0;
 }
 
-[data-x="played"]{
-  background: black;
+.column .win{
+  background: rgba(var(--gradientColor1,1));
+  color:rgba(var(--main), 1);
 }
-[data-order]{
-  color: white;
-}
-
-.win{
-  background: green;
-}
-.lose{
-  background: red;
+.column .lose{
+  background: rgba(var(--gradientColor3,1));
+  color: rgba(var(--main), 1);
 }

@@ -4,28 +4,41 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Knight's Tour</title>
   <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-  <header><h1>Knight's Tour</h1></header>
-  <section id >
-    <select name = "difficultySelector">
-      <option value="level 1" selected>level 1 (5x5)</option>
-      <option value="level 2">level 2 (6x6)</option>
-      <option value="level 3">level 3 (7x7)</option>
-      <option value="level 4">level 4 (8x8)</option>
-      <option value="level 5">level 5 (9x9)</option>
-      <option value="level 6">level 6 (10x10)</option>
-  
-      <select>
-  <button id="resetBTN">reset</button>
-  </section>
-  <section id="domGame">
-
-  </section>
-
-
+  <div id="wrapper">
+    <!--Info-->
+    <header>
+      <h1>Knight's Tour</h1>
+      <h2>How to play</h2>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, harum veritatis voluptate quo cumque eaque, amet explicabo ipsum iste quod eligendi non sapiente quibusdam cupiditate facere! Alias quo quisquam itaque.</p>
+    </header>
+    <main>
+      <!--Controls-->
+      <div id="gradientBorder">
+        <section id="game">
+      <div id="controls">
+        <button id="movesBTN">...</button>
+          <select name = "difficultySelector">
+            <option value="level 1" selected>level 1 (5x5)</option>
+            <option value="level 2">level 2 (6x6)</option>
+            <option value="level 3">level 3 (7x7)</option>
+            <option value="level 4">level 4 (8x8)</option>
+            <option value="level 5">level 5 (9x9)</option>
+            <option value="level 6">level 6 (10x10)</option>
+            <option value="legend">legend (26x26)</option>
+          <select>
+        <button id="resetBTN">reset</button>
+      </div>
+      <!--GAMEBOARD OUTPUT-->
+      <div id="domGame">
+      </div>
+    </section>
+      </div>
+    </main>
+  </div>
   <script src="./js/script.js"></script>
 </body>
 </html>

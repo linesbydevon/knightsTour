@@ -36,6 +36,9 @@ class gameBoard{
       case "level 6":
         this.size = 100;
         break;
+      case "legend":
+        this.size = 676;
+        break;
     }
   }
   //takes square root of size and creates a one parent array with <n> nested arrays within it then populates each nested array with values 0 through <n>

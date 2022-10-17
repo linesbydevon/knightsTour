@@ -9,11 +9,13 @@ class gameBoard{
     this.moves = [];
     this.squares = [];
     this.gameboard = document.querySelector("#domGame");
+    this.movesBTN = document.querySelector("#movesBTN");
     this.domButtons = [];
     this.validMoves = [];
     this.invalidMoves = [];
     //https://alephnode.io/07-event-handler-binding/ to fix "this" being read as referring to event object instead of class scope on event
     this.boundValidMoves = this.returnValidMoves.bind(this);
+    this.boundListMoves = this.listMoves.bind(this);
   }
   //evaluates the chosen level and sets the size of the gameboard
   setSize(){
@@ -116,7 +118,10 @@ class gameBoard{
     e.currentTarget.innerHTML = `<span>${this.move}</span>`;
     e.currentTarget.dataset.x='played';
     e.currentTarget.dataset.y='played';
+    console.log(e.currentTarget);
+    console.log(this.moves)
     this.moves.push(e.currentTarget);
+    console.log(this.moves)
     this.validMoves = knightMoves[0];
     this.invalidMoves = knightMoves[1];
     this.disableInvalid();
@@ -133,15 +138,57 @@ class gameBoard{
   disableInvalid(){
     this.invalidMoves.forEach(elem=>elem.setAttribute('disabled',''))
   }
-  setSquareListeners(){
-    this.domButtons.forEach(elem=>elem.addEventListener('click',this.boundValidMoves))
+  listMoves(){
+    //if there is a section element existing as a child of #domGame, toggle class "moves"
+    if(document.querySelector("#domGame section")){
+      document.querySelector("#domGame section").classList.toggle("moves");
+      console.log("section exists, toggling classList")
+    }
+    //else create a section element, set class attribute to "hidden moves" and append to #domElement
+    else{
+    let section = document.createElement("section");
+    section.setAttribute("class","hidden moves")
+    this.gameboard.appendChild(section);
+    console.log("no section, creating")
+    }
+    //assign section to variable, set its innerHTML empty, then create a span for each element in moves array
+    let section = document.querySelector("#domGame section")
+    section.innerHTML = '';
+
+    this.moves.forEach(elem=>{
+      
+      let span = document.createElement("span");
+      span.innerText = `${elem.dataset.order}: ${elem.id}`;
+      section.appendChild(span)
+    }
+  )
   }
+  setSquareListeners(){
+    this.domButtons.forEach(elem=>elem.addEventListener('click',this.boundValidMoves));
+    this.movesBTN.addEventListener("click",this.boundListMoves);
+  }
+
 
 }
 
-const makeGame = () =>{
+const makeGame = (e) =>{
+  let currentValue = document.querySelector('input[name="difficulty"]:checked').value;
+  console.log(currentValue)
   document.querySelector("#domGame").innerHTML = '';
-  let game = new gameBoard(document.querySelector("[name='difficultySelector']").value)
+  if (e===undefined){
+    console.log('no event')
+  }else if (e.currentTarget.name){
+    console.log("button clicked")
+    currentValue = false;
+    currentValue = e.currentTarget.value;
+    console.log(e.currentTarget);
+    document.querySelector("#difficultyDisplay p").innerText = e.currentTarget.value;
+    document.querySelector(".options").classList.toggle("expandedDifficulty");
+    document.querySelector("#difficultyDisplay p").classList.toggle("down");
+  }
+  console.log(document.querySelector('input[name="difficulty"]').value)
+  //let game = new gameBoard(document.querySelector("[name='difficultySelector']").value)
+  let game = new gameBoard(document.querySelector('input[name="difficulty"]:checked').value)
   game.setSize();
   game.createColumns();
   game.setSquareListeners()
@@ -149,6 +196,11 @@ const makeGame = () =>{
 
 makeGame();
 document.querySelector("#resetBTN").addEventListener('click',makeGame);
-document.querySelector("[name='difficultySelector']").addEventListener('change',makeGame);
-
-
+//document.querySelector("[name='difficultySelector']").addEventListener('change',makeGame);
+//console.log(document.querySelector('input[name="difficulty"]:checked'));
+document.querySelectorAll('input[name="difficulty"]').forEach(elem=>elem.addEventListener('click',makeGame));
+document.querySelector("#difficultyDisplay").addEventListener("click", ()=>{
+  document.querySelector('.options').classList.toggle("expandedDifficulty");
+  document.querySelector("#difficultyDisplay p").classList.toggle("down")
+}
+)

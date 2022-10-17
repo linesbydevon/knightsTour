@@ -62,28 +62,42 @@ main{
     rgba(var(--gradientColor1,1))
     );
   padding: 4px;
-  max-width: 638px;
+  max-width: 470px;
   border-radius: 24px;
   box-shadow: 0 0 15px 15px rgba(0,0,0,0.4);
 }
 
 #game{
   background: rgba(var(--main), 1);
-  padding: 32px 8px;
+  padding: 8px 8px 16px;
   border-radius: 20px;
+}
+
+#game header{
+  padding: 0;
+  width: 100%;
+  background: none;
+  background: conic-gradient(
+    rgba(var(--gradientColor1,1)),
+    rgba(var(--gradientColor2,1)),
+    rgba(var(--gradientColor3,1)),
+    rgba(var(--gradientColor1,1))
+    );
+  padding: 16px;
+  border-radius: 20px 20px 0px 0px
 }
 
 #game svg{
   margin: 0 auto;
   display: block;
   width: 80px;
-  margin-bottom: 32px;
+  border-radius: 50%;
 }
 
 #controls{
   display: flex;
   justify-content: space-between;
-  padding-bottom: 24px;
+  padding-top: 24px;
 }
 
 #controls button{
@@ -94,22 +108,10 @@ main{
   border-radius: 10px;
   cursor: pointer;
 }
-#controls select{
-  flex-grow: 1;
-  margin: 0 16px;
-  text-align: center;
-  background: rgba(var(--main));
-  color: rgba(var(--tint4), 1);
-}
-#controls select option{
-  background: rgba(var(--main));
-  color: white;
-}
 
-#controls form{
+
+form{
   position: relative;
-  flex-grow: 1;
-  margin: 0 32px;
   text-align: center;
 }
 
@@ -129,6 +131,7 @@ main{
 #difficultyDisplay p{
   margin: 0;
   transition: color 1s ease;
+  padding: 8px;
 }
 
 #difficultyDisplay p:after, #difficultyDisplay p:before{
@@ -138,7 +141,7 @@ main{
   width: 10px;
   aspect-ratio: 1;
   position: absolute;
-  bottom: 40%;
+  bottom: 45%;
   transition: transform 1s ease, bottom 1s ease, background 1s ease;
 }
 
@@ -158,13 +161,13 @@ main{
 
 #difficultyDisplay .down:after{
   transform: rotate(-135deg);
-  bottom: 47%;
+  bottom: 55%;
   --tint6: var(--gradientColor1);
 }
 
 #difficultyDisplay .down:before{
   transform: rotate(225deg);
-  bottom: 47%;
+  bottom: 55%;
   --tint6: var(--gradientColor1); 
 }
 
@@ -175,7 +178,7 @@ main{
   backdrop-filter: blur(10px);
   width: 100%;
   padding: 16px;
-  border-radius: 20px;
+  border-radius: 0 0 20px 20px;
   overflow: hidden;
   max-height: 0;
   padding: 0;
@@ -257,6 +260,7 @@ main{
 }
 .moves span{
   padding: 4px;
+  display: block;
 }
 
 .column{

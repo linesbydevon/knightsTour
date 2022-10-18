@@ -1,7 +1,7 @@
 console.log("working");
 
 class gameBoard{
-  constructor(level){
+  constructor(level, multiplayer){
     this.level= level;
     this.levels = ["level 1","level 2","level 3","level 4","level 5","level 6"]
     this.size = 0;
@@ -13,8 +13,10 @@ class gameBoard{
     this.domButtons = [];
     this.validMoves = [];
     this.invalidMoves = [];
-    this.multiplayer = false;
-    this.players = [{id:"Player 1", move: 0, moves: [], validMoves:[],invalidMoves:[]},{id:"Player 1", move: 0, moves: [], validMoves:[],invalidMoves:[]}]
+    this.multiplayer = multiplayer;
+    this.players = [{name:"Player 1", id:"a", move: 0, moves: [], validMoves:[],invalidMoves:[]},{name:"Player 2", id:"b", move: 0, moves: [], validMoves:[],invalidMoves:[]}];
+    this.player = null;
+    this.opponent = null;
     //https://alephnode.io/07-event-handler-binding/ to fix "this" being read as referring to event object instead of class scope on event
     this.boundValidMoves = this.returnValidMoves.bind(this);
     this.boundListMoves = this.listMoves.bind(this);
@@ -86,31 +88,97 @@ class gameBoard{
     })
     this.domButtons = document.querySelectorAll('#domGame button');
   }
+  setPlayer(){
+    this.player = ((this.move-1)%2===0) ? this.players[0]:this.players[1];
+    this.opponent = ((this.move-1)%2===0) ? this.players[1]:this.players[0];
+  }
   returnValidMoves(e){
     this.move++;
-    this.validMoves = [];
-    this.invalidMoves.forEach(elem=>elem.removeAttribute('disabled'));
     let x = parseInt(e.currentTarget.dataset.x);
     let y = parseInt(e.currentTarget.dataset.y);
     let domButtons = Array.from(this.domButtons)
     let knightMoves = domButtons.reduce((a,elem)=>{
-        if(
-          parseInt(elem.dataset.x) === x-2 && parseInt(elem.dataset.y) === y-1 ||
-          parseInt(elem.dataset.x) === x-2 && parseInt(elem.dataset.y) === y+1 ||
-          parseInt(elem.dataset.x) === x-1 && parseInt(elem.dataset.y) === y-2 ||
-          parseInt(elem.dataset.x) === x-1 && parseInt(elem.dataset.y) === y+2 ||
-          parseInt(elem.dataset.x) === x+2 && parseInt(elem.dataset.y) === y-1 ||
-          parseInt(elem.dataset.x) === x+2 && parseInt(elem.dataset.y) === y+1 ||
-          parseInt(elem.dataset.x) === x+1 && parseInt(elem.dataset.y) === y-2 ||
-          parseInt(elem.dataset.x) === x+1 && parseInt(elem.dataset.y) === y+2
-          ){
-            a[0].push(elem);
-          }else{
-            a[1].push(elem);
-          }
-          return a;   
-      },[[],[]]
-    );
+      if(
+        parseInt(elem.dataset.x) === x-2 && parseInt(elem.dataset.y) === y-1 ||
+        parseInt(elem.dataset.x) === x-2 && parseInt(elem.dataset.y) === y+1 ||
+        parseInt(elem.dataset.x) === x-1 && parseInt(elem.dataset.y) === y-2 ||
+        parseInt(elem.dataset.x) === x-1 && parseInt(elem.dataset.y) === y+2 ||
+        parseInt(elem.dataset.x) === x+2 && parseInt(elem.dataset.y) === y-1 ||
+        parseInt(elem.dataset.x) === x+2 && parseInt(elem.dataset.y) === y+1 ||
+        parseInt(elem.dataset.x) === x+1 && parseInt(elem.dataset.y) === y-2 ||
+        parseInt(elem.dataset.x) === x+1 && parseInt(elem.dataset.y) === y+2
+        ){
+          a[0].push(elem);
+        }else{
+          a[1].push(elem);
+        }
+        return a;   
+    },[[],[]]
+  );
+  if(this.multiplayer){
+      //determine who is player and who is opponent
+      this.setPlayer();
+      
+      //declare local player and opponent vars equal to set value on class
+      let player=this.player;
+      let opponent=this.opponent;
+
+      //===============
+      //troubleshooting
+      //===============
+      console.log('Before it all:')
+      console.log(`Player: ${player.name}\nOpponent: ${opponent.name}\n
+                    `);
+      console.log(`Player valid moves:`)
+      console.log(player.validMoves)
+      console.log('Opponent valid moves:')
+      console.log(opponent.validMoves)
+      console.log('======================')
+      //===============
+      //end troubleshooting
+      //===============
+      //remove attribute of disabled on all invalid moves
+      this.invalidMoves.forEach(elem=>elem.removeAttribute('disabled'));
+      //add to player move;
+      player.move++;
+      //player.invalidMoves.forEach(elem=>elem.removeAttribute("disabled"));
+      //validMoves = player valid moves
+      this.validMoves = player.validMoves;
+      //invalid moves is = to player invalid moves
+      this.invalidMoves = [...opponent.moves,...player.invalidMoves];
+      //set attribute of current square to order, set inner html to span with player order and replace the x/y attributes
+      e.currentTarget.setAttribute("data-order", player.move);
+      e.currentTarget.innerHTML = `<span>${player.move}</span>`;
+      e.currentTarget.dataset.x=`played${player.id}`;
+      e.currentTarget.dataset.y=`played${player.id}`;
+      player.moves.push(e.currentTarget);
+      if(player.moves.length>=2){
+        player.moves[player.moves.length-2].setAttribute("data-active",false);
+      }
+      player.moves[player.moves.length-1].setAttribute("data-active",true)
+      player.validMoves = knightMoves[0];
+      player.invalidMoves = knightMoves[1];
+      this.invalidMoves = [...player.moves, ...opponent.invalidMoves]
+
+      //===============
+      //troubleshooting
+      //===============
+      console.log('after it all:')
+      console.log(`Player: ${player.name}\nOpponent: ${opponent.name}\n
+                    `);
+      console.log(`Player valid moves:`)
+      console.log(player.validMoves)
+      console.log('Opponent valid moves:')
+      console.log(opponent.validMoves)
+      //===============
+      //end troubleshooting
+      //===============
+
+    }
+    //single player
+    else{
+    this.validMoves = [];
+    this.invalidMoves.forEach(elem=>elem.removeAttribute('disabled'));
     e.currentTarget.setAttribute("data-order", this.move)
     e.currentTarget.innerHTML = `<span>${this.move}</span>`;
     e.currentTarget.dataset.x='played';
@@ -118,6 +186,7 @@ class gameBoard{
     this.moves.push(e.currentTarget);
     this.validMoves = knightMoves[0];
     this.invalidMoves = knightMoves[1];
+    }
     this.disableInvalid();
     this.isGameOver();
   }
@@ -130,6 +199,14 @@ class gameBoard{
     }
   }
   disableInvalid(){
+    // if(this.multiplayer){
+    //   let player= this.player;
+    //   this.player.invalidMoves.forEach(elem=>elem.setAttribute("disabled",""));
+    //   let opponent = this.players.filter(elem=>elem.id!==player.id);
+    //   console.log(opponent);
+    //   opponent[0].invalidMoves.forEach(elem=>elem.removeAttribute("disabled"));
+
+    // }
     this.invalidMoves.forEach(elem=>elem.setAttribute('disabled',''))
   }
   listMoves(){
@@ -188,12 +265,15 @@ const makeGame = (e) =>{
     document.querySelector("#difficultyDisplay p").classList.toggle("down");
   }
   //create new instance of gameBoard class
-  let game = new gameBoard(document.querySelector('input[name="difficulty"]:checked').value)
+  let game = new gameBoard(document.querySelector('input[name="difficulty"]:checked').value, true)
   game.setSize();
   game.createColumns();
   game.createAndSetReset();
   game.setSquareListeners()
 }
+
+
+
 //run makeGame() when script runs
 makeGame();
 //on click of reset button or input buttons, run makeGame function

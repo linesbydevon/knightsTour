@@ -294,13 +294,38 @@ form{
   cursor: default;
 }
 
+.column [data-order]{
+  color: rgba(var(--tint6),1);
+}
+
 .column [data-x="played"]{
   background:rgba(var(--main), 1);
   border-color: rgba(var(--main), 1);
 }
-.column [data-order]{
-  color: rgba(var(--tint6),1);
+.column [data-x="playeda"]{
+  background:rgba(var(--gradientColor1), .25);
+  border-width: 1px;
+  border-color: rgba(var(--gradientColor1), 1);
 }
+.column [data-x="playedb"]{
+  background:rgba(var(--gradientColor2), .25);
+  border-width: 1px;
+  border-color: rgba(var(--gradientColor2), 1);
+}
+
+.column [data-x="playeda"][data-active="true"]{
+  background:rgba(var(--gradientColor1), 1);
+  color: rgba(var(--main),1)
+}
+
+.column [data-x="playedb"][data-active="true"]{
+  background:rgba(var(--gradientColor2), 1);
+  color: rgba(var(--main),1)
+}
+
+
+
+
 
 .column button span{
   display: block;

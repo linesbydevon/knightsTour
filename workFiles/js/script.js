@@ -9,7 +9,7 @@ class gameBoard{
     this.moves = [];
     this.squares = [];
     this.gameboard = document.querySelector("#domGame");
-    this.movesBTN = document.querySelector("#movesBTN");
+    this.movesBTN = null;
     this.domButtons = [];
     this.validMoves = [];
     this.invalidMoves = [];
@@ -165,6 +165,13 @@ class gameBoard{
   }
   setSquareListeners(){
     this.domButtons.forEach(elem=>elem.addEventListener('click',this.boundValidMoves));
+  
+  }
+  createAndSetReset(){
+    this.movesBTN = document.createElement("button");
+    this.movesBTN.innerText="...";
+    this.movesBTN.setAttribute("id","movesBTN");
+    document.querySelector("#controls").prepend(this.movesBTN);
     this.movesBTN.addEventListener("click",this.boundListMoves);
   }
 
@@ -175,6 +182,8 @@ const makeGame = (e) =>{
   let currentValue = document.querySelector('input[name="difficulty"]:checked').value;
   console.log(currentValue)
   document.querySelector("#domGame").innerHTML = '';
+  document.querySelector("#controls").removeChild(document.querySelector("#controls").firstChild);
+  //if function called outside of event, skip block, else if target of event has a name attribute, change currentValue to equal value of currentTarget, update the difficulty display, and close the dropdown menu
   if (e===undefined){
     console.log('no event')
   }else if (e.currentTarget.name){
@@ -186,11 +195,11 @@ const makeGame = (e) =>{
     document.querySelector(".options").classList.toggle("expandedDifficulty");
     document.querySelector("#difficultyDisplay p").classList.toggle("down");
   }
-  console.log(document.querySelector('input[name="difficulty"]').value)
-  //let game = new gameBoard(document.querySelector("[name='difficultySelector']").value)
+
   let game = new gameBoard(document.querySelector('input[name="difficulty"]:checked').value)
   game.setSize();
   game.createColumns();
+  game.createAndSetReset();
   game.setSquareListeners()
 }
 

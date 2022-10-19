@@ -154,6 +154,7 @@ class gameBoard{
       e.currentTarget.dataset.x=`played${player.id}`;
       e.currentTarget.dataset.y=`played${player.id}`;
       player.moves.push(e.currentTarget);
+      this.moves.push(e.currentTarget);
       if(player.moves.length>=2){
         player.moves[player.moves.length-2].setAttribute("data-active",false);
       }
@@ -181,7 +182,7 @@ class gameBoard{
     else{
     this.validMoves = [];
     this.invalidMoves.forEach(elem=>elem.removeAttribute('disabled'));
-    e.currentTarget.setAttribute("data-order", this.move)
+    e.currentTarget.setAttribute("data-order", this.move);
     e.currentTarget.innerHTML = `<span>${this.move}</span>`;
     e.currentTarget.dataset.x='played';
     e.currentTarget.dataset.y='played';
@@ -268,14 +269,22 @@ class gameBoard{
     //assign section to variable, set its innerHTML empty, then create a span for each element in moves array
     let section = document.querySelector("#domGame section")
     section.innerHTML = '';
-
-    this.moves.forEach(elem=>{
-      
-      let span = document.createElement("span");
-      span.innerText = `${elem.dataset.order}: ${elem.id}`;
-      section.appendChild(span)
+    let h3 = document.createElement("h3");
+    h3.innerText = "Moves Log";
+    section.appendChild(h3);
+    if(this.moves.length){
+      this.moves.forEach(elem=>{
+        
+        let span = document.createElement("span");
+        span.innerText = `${elem.dataset.order}: ${elem.id}`;
+        section.appendChild(span)
+      }
+      )
+    }else{
+        let span = document.createElement("span");
+        span.innerText = `No moves to list for this game`;
+        section.appendChild(span)
     }
-  )
   }
   setSquareListeners(){
     this.domButtons.forEach(elem=>elem.addEventListener('click',this.boundValidMoves));

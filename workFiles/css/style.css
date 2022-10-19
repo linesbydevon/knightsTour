@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@800&display=swap');
 
 *{
   box-sizing: border-box;
   font-family: helvetica;
+  padding: 0;
+  margin: 0;
 }
 
 html{
@@ -40,7 +43,6 @@ header{
 }
 
 svg{
-  width: 125px;
   fill: rgba(var(--main), 1);
   background: radial-gradient(
     rgba(var(--main),0) 99%,
@@ -49,6 +51,16 @@ svg{
   rgba(var(--gradientColor2,1)),
   rgba(var(--gradientColor3,1)),
   rgba(var(--gradientColor1,1)))
+}
+
+h1{
+  font-family: 'Inconsolata', monospace;
+  font-size: 64px;
+}
+
+h1 svg{
+  width: 40px;
+  border-radius: 50%;
 }
 
 main{
@@ -321,9 +333,16 @@ form{
   overflow: scroll;
   color: rgba(var(--tint6),1);
 }
+
+.moves h3{
+  padding-bottom: 16px;
+  border-bottom: 4px solid rgba(var(--tint6),1);
+  text-align: center;
+}
+
 .moves span{
-  padding: 4px;
   display: block;
+  margin-bottom: 4px;
 }
 
 .column{
@@ -414,9 +433,15 @@ form{
   body{
     padding: 16px 8px;
   }
+  header{
+    padding-right: 32px;
+  }
 }
 
 @media screen and (max-width: 690px){
+  body{
+    display: block;
+  }
   #wrapper{
     display:block;
   }
@@ -424,15 +449,15 @@ form{
     width: 100%;
     padding: 0 0 32px 0;
   }
-  svg{
-    margin: 0 auto;
-    display: block;
-  }
+
   h1{
     text-align: center;
   }
   main{
     width: 100%;
+  }
+  #gradientBorder{
+    margin: 0 auto;
   }
 
 }

@@ -197,33 +197,7 @@ class gameBoard{
   
     if(this.multiplayer){
       if(this.move>2){
-        if(this.player.validMoves.length===0){
-          this.domButtons.forEach(elem=>elem.setAttribute("disabled", true));
-          this.player.moves.forEach(elem=>elem.removeAttribute('data-active'));
-          this.player.moves.forEach(elem=>elem.setAttribute('class','loser'));
-          this.opponent.moves.forEach(elem=>elem.removeAttribute('data-active'))
-          this.opponent.moves.forEach(elem=>elem.setAttribute('class','win'));
-          document.querySelector(`#${this.opponent.id}`).setAttribute("class","winner");
-          document.querySelector(`#${this.player.id}`).setAttribute("class","loser");
-        } else if(this.opponent.validMoves.length===0){
-          this.domButtons.forEach(elem=>elem.setAttribute("disabled", true));
-          this.player.moves.forEach(elem=>elem.removeAttribute('data-active'));
-          this.player.moves.forEach(elem=>elem.setAttribute('class','win'));
-          this.opponent.moves.forEach(elem=>elem.removeAttribute('data-active'))
-          this.opponent.moves.forEach(elem=>elem.setAttribute('class','loser'));
-          document.querySelector(`#${this.opponent.id}`).setAttribute("class","loser");
-          document.querySelector(`#${this.player.id}`).setAttribute("class","winner");
-        } else if(this.player.validMoves.length===1 && 
-                  this.opponent.moves.includes(this.player.validMoves[0])){
-          this.domButtons.forEach(elem=>elem.setAttribute("disabled", true));
-          this.player.moves.forEach(elem=>elem.removeAttribute('data-active'));
-          this.player.moves.forEach(elem=>elem.setAttribute('class','loser'));
-          this.opponent.moves.forEach(elem=>elem.removeAttribute('data-active'))
-          this.opponent.moves.forEach(elem=>elem.setAttribute('class','win'));
-          document.querySelector(`#${this.opponent.id}`).setAttribute("class","winner");
-          document.querySelector(`#${this.player.id}`).setAttribute("class","loser");
-        } else if(this.opponent.validMoves.length===1 && 
-                  this.player.moves.includes(this.opponent.validMoves[0])){
+        if(this.opponent.validMoves.length===0){
           this.domButtons.forEach(elem=>elem.setAttribute("disabled", true));
           this.player.moves.forEach(elem=>elem.removeAttribute('data-active'));
           this.player.moves.forEach(elem=>elem.setAttribute('class','win'));
@@ -232,6 +206,37 @@ class gameBoard{
           document.querySelector(`#${this.opponent.id}`).setAttribute("class","loser");
           document.querySelector(`#${this.player.id}`).setAttribute("class","winner");
         }
+        else if(this.opponent.validMoves.length===1 && 
+                this.player.moves.includes(this.opponent.validMoves[0])
+                ){
+          this.domButtons.forEach(elem=>elem.setAttribute("disabled", true));
+          this.player.moves.forEach(elem=>elem.removeAttribute('data-active'));
+          this.player.moves.forEach(elem=>elem.setAttribute('class','win'));
+          this.opponent.moves.forEach(elem=>elem.removeAttribute('data-active'))
+          this.opponent.moves.forEach(elem=>elem.setAttribute('class','loser'));
+          document.querySelector(`#${this.opponent.id}`).setAttribute("class","loser");
+          document.querySelector(`#${this.player.id}`).setAttribute("class","winner");
+        } 
+        else if(this.player.validMoves.length===0){
+          this.domButtons.forEach(elem=>elem.setAttribute("disabled", true));
+          this.player.moves.forEach(elem=>elem.removeAttribute('data-active'));
+          this.player.moves.forEach(elem=>elem.setAttribute('class','loser'));
+          this.opponent.moves.forEach(elem=>elem.removeAttribute('data-active'))
+          this.opponent.moves.forEach(elem=>elem.setAttribute('class','win'));
+          document.querySelector(`#${this.opponent.id}`).setAttribute("class","winner");
+          document.querySelector(`#${this.player.id}`).setAttribute("class","loser");
+        }
+        else if(this.player.validMoves.length===1 && 
+                this.opponent.moves.includes(this.player.validMoves[0])
+                ){
+          this.domButtons.forEach(elem=>elem.setAttribute("disabled", true));
+          this.player.moves.forEach(elem=>elem.removeAttribute('data-active'));
+          this.player.moves.forEach(elem=>elem.setAttribute('class','loser'));
+          this.opponent.moves.forEach(elem=>elem.removeAttribute('data-active'))
+          this.opponent.moves.forEach(elem=>elem.setAttribute('class','win'));
+          document.querySelector(`#${this.opponent.id}`).setAttribute("class","winner");
+          document.querySelector(`#${this.player.id}`).setAttribute("class","loser");
+        } 
       }
     }
   
@@ -346,3 +351,13 @@ document.querySelector("#multiToggle").addEventListener("change",()=>{
   makeGame();
   document.querySelector("#players").classList.toggle("expanded");
 });
+
+document.querySelector("#toggle").addEventListener('click', ()=>{
+  if(document.getElementsByTagName( 'html' )[0].className === "lightmode"){
+    document.getElementsByTagName( 'html' )[0].classList.toggle("lightmode");
+    document.querySelector("#toggle").setAttribute("class","moveLeft");
+  }else{
+    document.getElementsByTagName( 'html' )[0].classList.toggle("lightmode");
+    document.querySelector("#toggle").setAttribute("class","moveRight");
+  }
+})

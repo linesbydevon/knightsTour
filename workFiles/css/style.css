@@ -21,14 +21,55 @@ html{
   --gradientColor4:198, 239, 255;
   background: rgba(var(--main), 1);
   color: rgba(var(--tint6),1);
+  transition: filter .6s ease;
 }
 
 body{
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   padding: 32px 24px;
+}
+
+#toggleContainer{
+  display: flex !important;
+  justify-content:flex-end;
+  opacity: 50%;
+  max-width: 1260px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0px 0px 32px;
+}
+
+#toggle{
+  display: block;
+  width: 40px;
+  height: 20px;
+  border: 1px solid white;
+  border-radius: 20px;
+  position: relative;
+  margin: 20px 0;
+  cursor: pointer;
+  
+}
+#toggle:after{
+  content: '';
+  display: block;
+  background: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: -1px;
+  transition: left .5s ease;
+}
+
+.moveLeft:after{
+  left: -1px;
+}
+
+.moveRight:after{
+  left:20px;
 }
 
 #wrapper{
@@ -39,7 +80,11 @@ body{
 
 header{
   width: 50%;
-  padding: 64px 64px 0 0;
+  padding: 0px 64px 0 0;
+}
+
+header strong{
+  color: rgba(var(--tint6),1);
 }
 
 svg{
@@ -56,11 +101,36 @@ svg{
 h1{
   font-family: 'Inconsolata', monospace;
   font-size: 64px;
+  margin-bottom: 32px;
+  color: rgba(var(--tint6),1);
+  max-width: 296px;
+  padding-bottom: 8px;
+  border-bottom: 8px solid rgba(var(--tint4),1);
 }
 
 h1 svg{
   width: 40px;
   border-radius: 50%;
+}
+
+
+
+header h2{
+  color: rgba(var(--gradientColor3,1));
+  margin-bottom: 16px;
+}
+
+header h3{
+  font-size: 18px;
+  color: rgba(var(--tint4), 1);
+  line-height: 1.4;
+}
+
+header p{
+  color: rgba(var(--tint4), 1);
+  font-size: 18px;
+  line-height: 1.4;
+  margin-bottom: 16px;
 }
 
 main{
@@ -126,13 +196,21 @@ main{
 }
 
 #players li{
-  transition: color .6s ease;
+  transition: color .6s ease, border-color .6s ease;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 3px solid;
 }
 
-.activePlayer{
-  color:rgba(var(--tint6),1);
+#a[class="activePlayer"]{
+  color:rgba(var(--gradientColor4),1);
 }
-.inactivePlayer{
+
+#b[class="activePlayer"]{
+  color:rgba(var(--gradientColor2),1);
+}
+
+#players .inactivePlayer{
   color: rgba(var(--tint3),1);
 }
 
@@ -336,6 +414,7 @@ form{
 
 .moves h3{
   padding-bottom: 16px;
+  margin-bottom: 16px;
   border-bottom: 4px solid rgba(var(--tint6),1);
   text-align: center;
 }
@@ -447,17 +526,21 @@ form{
   }
   header{
     width: 100%;
-    padding: 0 0 32px 0;
+    padding: 0 8px 32px;
   }
 
   h1{
     text-align: center;
+    margin: 0px auto 48px;
   }
   main{
     width: 100%;
   }
   #gradientBorder{
     margin: 0 auto;
+  }
+  #toggleContainer{
+    padding: 0;
   }
 
 }

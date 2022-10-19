@@ -1,0 +1,63 @@
+.lightmode{
+  --gradientColor1:247,121,125;
+  --gradientColor2:251,215,134;
+  --gradientColor3:198,255,221;
+  --gradientColor4:198, 239, 255;
+  filter: invert();
+  transition: filter 1s ease;
+}
+
+.lightmode .column button{
+  color: rgba(var(--tint6), 1);
+  border: 1px solid rgba(var(--main),1);
+  background:rgba(var(--tint2), 1);
+
+}
+
+.lightmode .column [disabled]{
+  background: rgba(var(--tint3),1);
+  border: 1px solid rgba(var(--main),1);
+  color: rgba(var(--main),1);
+  cursor: default;
+}
+
+.lightmode .column [data-order]{
+  color: rgba(var(--tint6),1);
+}
+
+
+.lightmode .column [data-x="playeda"]{
+  background:rgba(var(--gradientColor4), .25);
+  border-color: rgba(var(--gradientColor4), 1);
+}
+.lightmode .column [data-x="playedb"]{
+  background:rgba(var(--gradientColor2), .25);
+  border-color: rgba(var(--gradientColor2), 1);
+}
+
+.lightmode .column [data-x="playeda"][data-active="true"]{
+  background:rgba(var(--gradientColor4), 1);
+  color: rgba(var(--main),1)
+}
+
+.lightmode .column [data-x="playedb"][data-active="true"]{
+  background:rgba(var(--gradientColor2), 1);
+  color: rgba(var(--main),1)
+}
+
+.lightmode .column .win{
+  background: rgba(var(--gradientColor1,1));
+  color:rgba(var(--main), 1);
+  border: 1px solid rgba(var(--main), 1);
+}
+.lightmode .column .lose{
+  background: rgba(var(--gradientColor3,1));
+  color: rgba(var(--main), 1);
+  border: 1px solid rgba(var(--main), 1);
+}
+
+.lightmode .column [data-x="played"], .lightmode .column .loser{
+  background:rgba(var(--main), 1);
+  border-color: rgba(var(--main), 1);
+}
+

@@ -91,6 +91,8 @@ class gameBoard{
   setPlayer(){
     this.player = ((this.move-1)%2===0) ? this.players[0]:this.players[1];
     this.opponent = ((this.move-1)%2===0) ? this.players[1]:this.players[0];
+    document.querySelector(`#${this.opponent.id}`).setAttribute("class","activePlayer");
+    document.querySelector(`#${this.player.id}`).setAttribute("class","inactivePlayer");
   }
   returnValidMoves(e){
     this.move++;
@@ -191,11 +193,54 @@ class gameBoard{
     this.isGameOver();
   }
   isGameOver(){
-    if (this.move === this.size){
-      this.moves.forEach(elem=>elem.setAttribute('class','win'))
+  
+    if(this.multiplayer){
+      if(this.move>2){
+        if(this.player.validMoves.length===0){
+          this.domButtons.forEach(elem=>elem.setAttribute("disabled", true));
+          this.player.moves.forEach(elem=>elem.removeAttribute('data-active'));
+          this.player.moves.forEach(elem=>elem.setAttribute('class','loser'));
+          this.opponent.moves.forEach(elem=>elem.removeAttribute('data-active'))
+          this.opponent.moves.forEach(elem=>elem.setAttribute('class','win'));
+          document.querySelector(`#${this.opponent.id}`).setAttribute("class","winner");
+          document.querySelector(`#${this.player.id}`).setAttribute("class","loser");
+        } else if(this.opponent.validMoves.length===0){
+          this.domButtons.forEach(elem=>elem.setAttribute("disabled", true));
+          this.player.moves.forEach(elem=>elem.removeAttribute('data-active'));
+          this.player.moves.forEach(elem=>elem.setAttribute('class','win'));
+          this.opponent.moves.forEach(elem=>elem.removeAttribute('data-active'))
+          this.opponent.moves.forEach(elem=>elem.setAttribute('class','loser'));
+          document.querySelector(`#${this.opponent.id}`).setAttribute("class","loser");
+          document.querySelector(`#${this.player.id}`).setAttribute("class","winner");
+        } else if(this.player.validMoves.length===1 && 
+                  this.opponent.moves.includes(this.player.validMoves[0])){
+          this.domButtons.forEach(elem=>elem.setAttribute("disabled", true));
+          this.player.moves.forEach(elem=>elem.removeAttribute('data-active'));
+          this.player.moves.forEach(elem=>elem.setAttribute('class','loser'));
+          this.opponent.moves.forEach(elem=>elem.removeAttribute('data-active'))
+          this.opponent.moves.forEach(elem=>elem.setAttribute('class','win'));
+          document.querySelector(`#${this.opponent.id}`).setAttribute("class","winner");
+          document.querySelector(`#${this.player.id}`).setAttribute("class","loser");
+        } else if(this.opponent.validMoves.length===1 && 
+                  this.player.moves.includes(this.opponent.validMoves[0])){
+          this.domButtons.forEach(elem=>elem.setAttribute("disabled", true));
+          this.player.moves.forEach(elem=>elem.removeAttribute('data-active'));
+          this.player.moves.forEach(elem=>elem.setAttribute('class','win'));
+          this.opponent.moves.forEach(elem=>elem.removeAttribute('data-active'))
+          this.opponent.moves.forEach(elem=>elem.setAttribute('class','loser'));
+          document.querySelector(`#${this.opponent.id}`).setAttribute("class","loser");
+          document.querySelector(`#${this.player.id}`).setAttribute("class","winner");
+        }
+      }
     }
-    else if (this.validMoves.length===0){
-      this.moves.forEach(elem=>elem.setAttribute('class','lose'))
+  
+    else{
+      if (this.move === this.size){
+        this.moves.forEach(elem=>elem.setAttribute('class','win'))
+      }
+      else if (this.validMoves.length===0){
+        this.moves.forEach(elem=>elem.setAttribute('class','lose'))
+      }
     }
   }
   disableInvalid(){
@@ -240,7 +285,7 @@ class gameBoard{
     this.movesBTN = document.createElement("button");
     this.movesBTN.innerText="...";
     this.movesBTN.setAttribute("id","movesBTN");
-    document.querySelector("#controls").prepend(this.movesBTN);
+    document.querySelector("#controls div").prepend(this.movesBTN);
     this.movesBTN.addEventListener("click",this.boundListMoves);
   }
 
@@ -251,13 +296,16 @@ const makeGame = (e) =>{
   //clear out inner HTML of domGame so squares aren't being appended infinitely upon reset
   document.querySelector("#domGame").innerHTML = '';
   //remove resetButton so buttons aren't added infinitely upon reset
-  document.querySelector("#controls").removeChild(document.querySelector("#controls").firstChild);
+  document.querySelector("#controls div").removeChild(document.querySelector("#controls div").firstChild);
+  //
+  document.querySelector("#a").setAttribute("class","activePlayer");
+  document.querySelector("#b").setAttribute("class","inactivePlayer");
   //declare currentValue
   let currentValue;
   //if function called outside of event, set currentValue to default selected element in HTML, else if target of event has a name attribute, change currentValue to equal value of currentTarget, update the difficulty display, and close the dropdown menu
   if (e===undefined){
     currentValue = document.querySelector('input[name="difficulty"]:checked').value;
-  }else if (e.currentTarget.name){
+  }else if (e.currentTarget.name==="difficulty"){
     //currentValue = false;
     currentValue = e.currentTarget.value;
     document.querySelector("#difficultyDisplay p").innerText = e.currentTarget.value;
@@ -265,7 +313,7 @@ const makeGame = (e) =>{
     document.querySelector("#difficultyDisplay p").classList.toggle("down");
   }
   //create new instance of gameBoard class
-  let game = new gameBoard(document.querySelector('input[name="difficulty"]:checked').value, true)
+  let game = new gameBoard(document.querySelector('input[name="difficulty"]:checked').value, document.querySelector('input[name="multiplayer"]:checked'))
   game.setSize();
   game.createColumns();
   game.createAndSetReset();
@@ -283,5 +331,9 @@ document.querySelectorAll('input[name="difficulty"]').forEach(elem=>elem.addEven
 document.querySelector("#difficultyDisplay").addEventListener("click", ()=>{
   document.querySelector('.options').classList.toggle("expandedDifficulty");
   document.querySelector("#difficultyDisplay p").classList.toggle("down")
-}
+  }
 )
+document.querySelector("#multiToggle").addEventListener("change",()=>{
+  makeGame();
+  document.querySelector("#players").classList.toggle("expanded");
+});

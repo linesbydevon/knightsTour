@@ -15,6 +15,7 @@ html{
   --gradientColor1:198,255,221;
   --gradientColor2:251,215,134;
   --gradientColor3:247,121,125;
+  --gradientColor4:198, 239, 255;
   background: rgba(var(--main), 1);
   color: rgba(var(--tint6),1);
 }
@@ -93,11 +94,73 @@ main{
   width: 80px;
   border-radius: 50%;
 }
+#players{
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .6s ease;
+}
+
+#players[class="expanded"]{
+  max-height: 100vh;
+  transition: max-height .6s ease;
+}
+
+#players ul{
+  list-style: none;
+  display: flex;
+  padding: 0;
+  justify-content: space-around;
+  font-weight: bold;
+}
+
+#players li{
+  transition: color .6s ease;
+}
+
+.activePlayer{
+  color:rgba(var(--tint6),1);
+}
+.inactivePlayer{
+  color: rgba(var(--tint3),1);
+}
+
+#players .winner{
+  color: rgba(var(--gradientColor1,1));
+}
+
+#players .loser{
+  color: rgba(var(--tint3),1);
+}
 
 #controls{
   display: flex;
   justify-content: space-between;
-  padding-top: 24px;
+  padding-top: 16px;
+}
+
+#controls div{
+  display: flex;
+  justify-content: space-between;
+}
+
+#controls label{
+  width: 36px;
+  padding: 8px;
+  border: 1px solid rgba(var(--tint4), 1);
+  border-radius: 10px;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+#controls label svg{
+  border-radius: 0;
+  background: none;
+  fill: rgba(var(--tint4), 1);
+  width: 100%;
+}
+
+#controls input[type="checkbox"]{
+  display: none;
 }
 
 #controls button{
@@ -298,14 +361,11 @@ form{
   color: rgba(var(--tint6),1);
 }
 
-.column [data-x="played"]{
-  background:rgba(var(--main), 1);
-  border-color: rgba(var(--main), 1);
-}
+
 .column [data-x="playeda"]{
-  background:rgba(var(--gradientColor1), .25);
+  background:rgba(var(--gradientColor4), .25);
   border-width: 1px;
-  border-color: rgba(var(--gradientColor1), 1);
+  border-color: rgba(var(--gradientColor4), 1);
 }
 .column [data-x="playedb"]{
   background:rgba(var(--gradientColor2), .25);
@@ -314,7 +374,7 @@ form{
 }
 
 .column [data-x="playeda"][data-active="true"]{
-  background:rgba(var(--gradientColor1), 1);
+  background:rgba(var(--gradientColor4), 1);
   color: rgba(var(--main),1)
 }
 
@@ -323,7 +383,10 @@ form{
   color: rgba(var(--main),1)
 }
 
-
+.column [data-x="played"], .column .loser{
+  background:rgba(var(--main), 1);
+  border-color: rgba(var(--main), 1);
+}
 
 
 
@@ -339,10 +402,12 @@ form{
 .column .win{
   background: rgba(var(--gradientColor1,1));
   color:rgba(var(--main), 1);
+  border: 1px solid rgba(var(--main), 1);
 }
 .column .lose{
   background: rgba(var(--gradientColor3,1));
   color: rgba(var(--main), 1);
+  border: 1px solid rgba(var(--main), 1);
 }
 
 @media screen and (max-width: 960px){

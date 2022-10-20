@@ -1,58 +1,81 @@
-# knightsTour
+# JUGR-KNOT
 A chess-based puzzle game
 
-## Context
-> A knight's tour is a sequence of moves of a knight on a chessboard such that a knight visits every square exactly once.
-- From the [Wikipedia article on the Knight's Tour](https://en.wikipedia.org/wiki/Knight%27s_tour)
+## About
+JUGR-KNOT is a strategy game based on the chess concept of a Knight's Tour. A Knight's Tour is a sequence of movements by a single knight that results in every square on the chess board being occupied exactly once.
 
-## Proposal
-The user experience of my Knight's Tour game will be very similar to my tic-tac-toe game in layout and interaction. The user will be able to click or tap box elements laid out in a grid.
+## How to play
 
-The game starts when a user taps the first square, which then becomes disabled. From there I hope to highlight valid moves on the grid--squares that 1) follow the rules of how a knight moves 2) are not disabled from previous taps.
+### Single Player
 
-If no valid moves are left but there are untapped squares in play then the player loses. If the user disables all the squares then the player wins.
+Your mission is simple—attempt to disable every single square on a grid size of your choosing. Starting at level 1 is a good idea but it's your choice. You lose if you run out of valid moves before disabling all squares on the grid.
 
-Possible bonus considerations if I have time:
+### Multiplayer
 
-1. An input that allows the user to generate a grid of variable numbers within a reasonable range (for display purposes). This would enable a player to start off on a 5x5 grid and level up for a greater challenge.
+Battle head to head with a friend—or enemy—to determine who is the most cunning knight. The first player to run out of valid moves loses.
 
-2. While this is a single player game, I considered the possibility of a turn based version in which one user tries to "dead-end" the other out of valid moves.
+## Style guide
 
-## How to get started
-I think I'll be able to leverage the experience I gained building tic-tac-toe logic while developing this. One hurdle I face is that knights have a unique movement pattern that I'll have to figure out how to program. If I can crack this in a way that is scalable then the grid size will be arbitrary.
+Please adhere to these guidelines for the immediate future when developing new features or refactoring code.
 
-My first order of business is figuring out how the elements on the dom relate to each other and how to work out.
+### Typography
 
-I'm thinking about setting up the gameboard as nested arrays like below
+#### Inconsolata
+
+Inconsolata is a monospace font that enables equal spacing on each side of the knot logo in the JUGR-KNOT lock up. As of now it should only be used in this capacity. 
+
+Importing and using Inconsolata in CSS:
 
 ```
-[
-  [0, 1, 2, 3, 4, 5, 6, 7],
-  [0, 1, 2, 3, 4, 5, 6, 7],
-  [0, 1, 2, 3, 4, 5, 6, 7],
-  [0, 1, 2, 3, 4, 5, 6, 7],
-  [0, 1, 2, 3, 4, 5, 6, 7],
-  [0, 1, 2, 3, 4, 5, 6, 7],
-  [0, 1, 2, 3, 4, 5, 6, 7],
-  [0, 1, 2, 3, 4, 5, 6, 7]
-]
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@800&display=swap');
+font-family: 'Inconsolata', monospace;
 ```
 
-I haven't fully thought this out but I'm thinking I can 1) add event listeners to detect click for each element on the game board 2) access the index value of that event 3) evaluate valid moves.
+[Read more about Inconsolata](https://fonts.google.com/specimen/Inconsolata/about?query=incon&preview.text=JUGR-KNOT&preview.text_type=custom)
 
-This matrix makes the movements more intuitive (I hope). For instance, if a user clicks on `arr[2][2]` then they have 8 potential moves: `[0][1], [0][3], [1][0], [1][4], [3][0],[3][4], [4][1],[4][3]` and of these the program will have to loop through to determine if they're disabled.
+#### Helvetica
 
-This is better visualized in the attached image below.
+Helvetica should be the first font-family listed in all element stacks, absent the JUGR-KNOT lock up. Absent Helvetica, Arial is an appropriate substitute. This is necessary as we are not currently importing Helvetica.
 
-![Visualization of board as nested arrays](./whiteboarding/img/matrixVisualization.png)
+Required font-stack:
 
-## TRELLO BOARD
+```
+font-family: helvetica, arial, sans-serif;
+```
 
-My Trello board for this project can be [found here](https://trello.com/invite/b/rPiDi0oT/67a3ee1760ee709d29f385ca3ec19a67/knights-tour-project).
+### Spacing
 
-## WIREFRAMES
+### Color
 
-Below I've included initial concepting (subject to change).
-![Wireframe layout for larger screens](./whiteboarding/img/wireframe_desktop.jpg)
-![Wireframe layout for narrower screens](./whiteboarding/img/wireframe_mobile.jpg)
+#### Darkmode
+
+#### Lightmode
+
+## Roadmap
+
+### History
+
+- Initial logic for proof of concept
+- Initial layout in HTML/CSS
+- Responsivity for mobile
+- Dropdown menu for selection of various levels of difficulty
+- Toggle button that displays moves history for current game
+- Toggle button for switching between multiplayer
+- Initial logic for multiplayer gameplay
+- Toggle input for darkmode/lightmode
+
+### Future
+
+- Refactor code for improved abstraction so as to maximize efficiency and minimize complexity
+- Functionality that enables users to copy moveslist to clipboard with a click/tap instead of hightlighting and copying a list
+- Develop and implement better articulated style guide for lightmode and darkmode
+- Make info section/subsections collapsable/expandable
+- Add a timer function and score to foster competition among users
+- Add ability to create an account/profile for additional features:
+  - Saving and reviewing the moves list for previous games
+  - Ranking users by score/time on each level
+  - Enabling users to play against eachother in multiplayer mode
+- Create new grids of uneven dimensions
+  - Rectangles
+  - Grids with gaps/obstacles that require more precise tour execution to navigate
 

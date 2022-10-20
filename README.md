@@ -45,11 +45,97 @@ font-family: helvetica, arial, sans-serif;
 
 ### Spacing
 
+For the sake of consistency and maintaining a visual heirarchy it is necessary to adhere to this basic rule whenever you declare spacing within or between elements on the page: the 8px rule.
+
+#### The 8px rule
+
+Whereever a CSS rule is declared that impacts the spacing between elements (margin properties) or within elements (padding properties), the value of the property declared should be a divisor OR multiple of 8. As such the smallest declared spacing might be 2px and may go up to 32px, 64px, etc.
+
+Note: This only applies to explicitly delared spacing in static units and does not account for variable spacing like auto properties on margins or flex properties that justify content in particular ways.
+
 ### Color
+
+All colors are declared in CSS variables with values corresponding to R,G,B values of the color assigned. No colors should be assigned in CSS properties without referencing the associated variable. This practice encourages adherence to style guides and enables greater scalability and maintainability of code.  For instance, the main color in darkmode is a dark grey. See how it is declared, used, and compiled below.
+
+Variable declaration:
+```
+--main: 43,41,38;
+```
+
+Variable in use:
+```
+background: rgba(var(--main), 1);
+```
+
+Compiled:
+```
+background: rgba(43,41,38,1);
+```
+
+Note how this format still enables one to take advantage of the alpha value in rgba. Consider writing all color assignments in rgba format for easy manipulation of opacity in the future for user interactions, transitions, etc. 
 
 #### Darkmode
 
+![darkmode color swatches](./readmeAssets/style_colors_darkmode.jpg)
+
+##### main
+```
+--main: 43,41,38;
+```
+
+##### tint1
+```
+--tint1: 74,72,69;
+```
+
+##### tint2
+```
+--tint2: 104,105,103;
+```
+
+##### tint3
+```
+--tint3: 141,140,138;
+```
+
+##### tint4
+```
+--tint4: 178,177,176;
+```
+
+##### tint5
+```
+--tint5: 216,215,215;
+```
+
+##### tint6
+```
+--tint6: 252,252,252;
+```
+
+##### gradientColor1
+```
+--gradientColor1:198,255,221;
+```
+
+##### gradientColor2
+```
+--gradientColor2:251,215,134;
+```
+
+##### gradientColor3
+```
+--gradientColor3:247,121,125;
+```
+
+##### gradientColor4
+```
+--gradientColor4:198, 239, 255;
+```
+
 #### Lightmode
+
+Lightmode style guide is still in development. In the interim, the pallete for lightmode is a simple inversion of the darkmode pallete. 
 
 ## Roadmap
 
@@ -66,6 +152,13 @@ font-family: helvetica, arial, sans-serif;
 
 ### Future
 
+A look into what the future could hold for this project. Many of these tasks can be executed out of order but should be read as ordered by level of priority.
+
+- Address potential accessibility concerns on demo:
+  - better semantic mark-up
+  - color contrast in both light and darkmode
+  - ability to toggle animations/transitions
+  - better clarity regarding what buttons and inputs do
 - Refactor code for improved abstraction so as to maximize efficiency and minimize complexity
 - Functionality that enables users to copy moveslist to clipboard with a click/tap instead of hightlighting and copying a list
 - Develop and implement better articulated style guide for lightmode and darkmode

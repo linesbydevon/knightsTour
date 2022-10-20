@@ -2,7 +2,7 @@
 A chess-based puzzle game
 
 ## About
-JUGR-KNOT is a strategy game based on the chess concept of a Knight's Tour. A Knight's Tour is a sequence of movements by a single knight that results in every square on the chess board being occupied exactly once.
+JUGR-KNOT is a strategy game based on the chess concept of a Knight's Tour [currently deployed on surge](https://amuck-alarm12345.surge.sh/). A Knight's Tour is a sequence of movements by a single knight that results in every square on the chess board being occupied exactly once.
 
 ![mock-ups of game on laptop and mobile](./readmeAssets/hero_mockup.jpg)
 

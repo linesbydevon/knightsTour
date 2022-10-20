@@ -94,7 +94,7 @@ if (this.move === this.size){
 }
 ```
 
-If the value of `this.moves` is equal to the size of the board then the user sucessfully navigated all squares. If, however, `this.validMoves` is empty then the user has trapped themselves before being able to disable all positions on the board. 
+If the value of `this.moves` is equal to the size of the board then the user successfully navigated all squares. If, however, `this.validMoves` is empty then the user has trapped themselves before being able to disable all positions on the board. 
 
 ### Multiplayer
 
@@ -131,13 +131,13 @@ font-family: helvetica, arial, sans-serif;
 
 ### Spacing
 
-For the sake of consistency and maintaining a visual heirarchy it is necessary to adhere to this basic rule whenever you declare spacing within or between elements on the page: the 8px rule.
+For the sake of consistency and maintaining a visual hierarchy it is necessary to adhere to this basic rule whenever you declare spacing within or between elements on the page: the 8px rule.
 
 #### The 8px rule
 
-Whereever a CSS rule is declared that impacts the spacing between elements (margin properties) or within elements (padding properties), the value of the property declared should be a divisor OR multiple of 8. As such the smallest declared spacing might be 2px and may go up to 32px, 64px, etc.
+Wherever a CSS rule is declared that impacts the spacing between elements (margin properties) or within elements (padding properties), the value of the property declared should be a divisor OR multiple of 8. As such the smallest declared spacing might be 2px and may go up to 32px, 64px, etc.
 
-Note: This only applies to explicitly delared spacing in static units and does not account for variable spacing like auto properties on margins or flex properties that justify content in particular ways.
+Note: This only applies to explicitly declared spacing in static units and does not account for variable spacing like auto properties on margins or flex properties that justify content in particular ways.
 
 ### Color
 
@@ -221,7 +221,7 @@ Note how this format still enables one to take advantage of the alpha value in r
 
 #### Lightmode
 
-Lightmode style guide is still in development. In the interim, the pallete for lightmode is a simple inversion of the darkmode pallete. 
+Lightmode style guide is still in development. In the interim, the palette for lightmode is a simple inversion of the darkmode palette. 
 
 ## Roadmap
 
@@ -242,19 +242,18 @@ A look into what the future could hold for this project. Many of these tasks can
 
 - Address potential accessibility concerns on demo:
   - better semantic mark-up
-  - color contrast in both light and darkmode
+  - color contrast in both light and dark mode
   - ability to toggle animations/transitions
   - better clarity regarding what buttons and inputs do
 - Refactor code for improved abstraction so as to maximize efficiency and minimize complexity
-- Functionality that enables users to copy moveslist to clipboard with a click/tap instead of hightlighting and copying a list
+- Functionality that enables users to copy the moves list to their clipboard with a click/tap instead of highlighting and copying a list
 - Develop and implement better articulated style guide for lightmode and darkmode
 - Make info section/subsections collapsable/expandable
 - Add a timer function and score to foster competition among users
 - Add ability to create an account/profile for additional features:
   - Saving and reviewing the moves list for previous games
   - Ranking users by score/time on each level
-  - Enabling users to play against eachother in multiplayer mode
+  - Enabling users to play against each other in multiplayer mode
 - Create new grids of uneven dimensions
   - Rectangles
   - Grids with gaps/obstacles that require more precise tour execution to navigate
-

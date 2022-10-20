@@ -6,11 +6,79 @@ JUGR-KNOT is a strategy game based on the chess concept of a Knight's Tour. A Kn
 
 ![mock-ups of game on laptop and mobile](./readmeAssets/hero_mockup.jpg)
 
+### For Devs
+
+The majority of the game is encapsulated in a class called `gameBoard`. See below for a skeleton of this class.
+
+```
+class gameBoard{
+  constructor(level, multiplayer){
+    this.level= level;
+    this.size = 0;
+    this.move = 0;
+    this.moves = [];
+    this.squares = [];
+    this.gameboard = document.querySelector("#domGame");
+    this.movesBTN = null;
+    this.domButtons = [];
+    this.validMoves = [];
+    this.invalidMoves = [];
+    this.multiplayer = multiplayer;
+    this.players = [{name:"Player 1", id:"a", move: 0, moves: [], validMoves:[],invalidMoves:[]},{name:"Player 2", id:"b", move: 0, moves: [], validMoves:[],invalidMoves:[]}];
+    this.player = null;
+    this.opponent = null;
+    this.boundValidMoves = this.returnValidMoves.bind(this);
+    this.boundListMoves = this.listMoves.bind(this);
+  }
+  setSize(){...}
+  createColumns(){...}
+  setPlayer(){...}
+  returnValidMoves(e){...}
+  isGameOver(){...}
+  listMoves(){...}
+  setSquareListeners(){...}
+  createAndSetReset(){...}
+}
+```
+
+A function called `makeGame` resets DOM elements, creates a new instance of a game class, and repopulates DOM elements when the page loads, the reset button is clicked, a new difficulty level is selected, or the user toggles multiplayer mode.
+
 ## How to play
 
 ### Single Player
 
 Your mission is simple—attempt to disable every single square on a grid size of your choosing. Starting at level 1 is a good idea but it's your choice. You lose if you run out of valid moves before disabling all squares on the grid.
+
+#### For Devs
+
+Each square has a data attributes that include x and y axis values. Upon selecting a square to play, valid moves and invalid moves are reduced from the main nodelist of buttons to return a nested array. 
+
+```
+let x = parseInt(e.currentTarget.dataset.x);
+    let y = parseInt(e.currentTarget.dataset.y);
+    let domButtons = Array.from(this.domButtons)
+    let knightMoves = domButtons.reduce((a,elem)=>{
+      if(
+        parseInt(elem.dataset.x) === x-2 && parseInt(elem.dataset.y) === y-1 ||
+        parseInt(elem.dataset.x) === x-2 && parseInt(elem.dataset.y) === y+1 ||
+        parseInt(elem.dataset.x) === x-1 && parseInt(elem.dataset.y) === y-2 ||
+        parseInt(elem.dataset.x) === x-1 && parseInt(elem.dataset.y) === y+2 ||
+        parseInt(elem.dataset.x) === x+2 && parseInt(elem.dataset.y) === y-1 ||
+        parseInt(elem.dataset.x) === x+2 && parseInt(elem.dataset.y) === y+1 ||
+        parseInt(elem.dataset.x) === x+1 && parseInt(elem.dataset.y) === y-2 ||
+        parseInt(elem.dataset.x) === x+1 && parseInt(elem.dataset.y) === y+2
+        ){
+          a[0].push(elem);
+        }else{
+          a[1].push(elem);
+        }
+        return a;   
+    },[[],[]]
+```
+
+In this case, `a[0]` contains valid moves and `a[1]` contains invalid moves. These are pushed to the `validMoves` and `invalidMoves` properties on the object each turn. 
+
+When a square is played, its x and y values are set to "played" so they won't be included in future options for valid moves. 
 
 ### Multiplayer
 

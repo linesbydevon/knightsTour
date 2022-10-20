@@ -268,7 +268,7 @@ class gameBoard{
     this.domButtons.forEach(elem=>elem.addEventListener('click',this.boundValidMoves));
   
   }
-  createAndSetReset(){
+  createAndSetMovesBTN(){
     this.movesBTN = document.createElement("button");
     this.movesBTN.innerText="...";
     this.movesBTN.setAttribute("id","movesBTN");
@@ -305,7 +305,7 @@ const makeGame = (e) =>{
   let game = new gameBoard(document.querySelector('input[name="difficulty"]:checked').value, document.querySelector('input[name="multiplayer"]:checked'))
   game.setSize();
   game.createColumns();
-  game.createAndSetReset();
+  game.createAndSetMovesBTN();
   game.setSquareListeners()
 }
 

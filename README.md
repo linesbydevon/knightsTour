@@ -40,7 +40,7 @@ class gameBoard{
   isGameOver(){...}
   listMoves(){...}
   setSquareListeners(){...}
-  createAndSetReset(){...}
+  createAndSetMovesBTN(){...}
 }
 ```
 

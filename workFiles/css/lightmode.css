@@ -14,6 +14,8 @@
 
 }
 
+
+
 .lightmode .column [disabled]{
   background: rgba(var(--tint3),1);
   border: 1px solid rgba(var(--main),1);
@@ -35,6 +37,11 @@
   border-color: rgba(var(--gradientColor2), 1);
 }
 
+.lightmode .column [data-x="played"], .lightmode .column .loser{
+  background:rgba(var(--main), 1);
+  border-color: rgba(var(--main), 1);
+}
+
 .lightmode .column [data-x="playeda"][data-active="true"]{
   background:rgba(var(--gradientColor4), 1);
   color: rgba(var(--main),1)
@@ -54,10 +61,5 @@
   background: rgba(var(--gradientColor3,1));
   color: rgba(var(--main), 1);
   border: 1px solid rgba(var(--main), 1);
-}
-
-.lightmode .column [data-x="played"], .lightmode .column .loser{
-  background:rgba(var(--main), 1);
-  border-color: rgba(var(--main), 1);
 }
 

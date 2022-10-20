@@ -118,12 +118,15 @@ h1 svg{
 header h2{
   color: rgba(var(--gradientColor3,1));
   margin-bottom: 16px;
+  text-transform: uppercase;
 }
 
 header h3{
   font-size: 18px;
   color: rgba(var(--tint4), 1);
   line-height: 1.4;
+  color: rgba(var(--gradientColor3,1));
+  
 }
 
 header p{

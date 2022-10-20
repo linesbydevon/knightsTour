@@ -24,7 +24,10 @@ class gameBoard{
     this.validMoves = [];
     this.invalidMoves = [];
     this.multiplayer = multiplayer;
-    this.players = [{name:"Player 1", id:"a", move: 0, moves: [], validMoves:[],invalidMoves:[]},{name:"Player 2", id:"b", move: 0, moves: [], validMoves:[],invalidMoves:[]}];
+    this.players = [
+      {name:"Player 1", id:"a", move: 0, moves: [], validMoves:[],invalidMoves:[]},
+      {name:"Player 2", id:"b", move: 0, moves: [], validMoves:[],invalidMoves:[]}
+      ];
     this.player = null;
     this.opponent = null;
     this.boundValidMoves = this.returnValidMoves.bind(this);
@@ -42,6 +45,19 @@ class gameBoard{
 ```
 
 A function called `makeGame` resets DOM elements, creates a new instance of a game class, and repopulates DOM elements when the page loads, the reset button is clicked, a new difficulty level is selected, or the user toggles multiplayer mode.
+
+After each move, the method `isGameOver` evaluates a simple win condition and simple lose condition detailed below.
+
+```
+ if (this.move === this.size){
+        this.moves.forEach(elem=>elem.setAttribute('class','win'))
+      }
+      else if (this.validMoves.length===0){
+        this.moves.forEach(elem=>elem.setAttribute('class','lose'))
+      }
+```
+
+If the value of `this.moves` is equal to the size of the board then the user sucessfully navigated all squares. If, however, `this.validMoves` is empty then the user has trapped themselves before being able to disable all positions on the board. 
 
 ## How to play
 

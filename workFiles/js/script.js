@@ -344,3 +344,8 @@ document.querySelector("#toggle").addEventListener('click', ()=>{
     document.querySelector("#toggle").setAttribute("class","moveRight");
   }
 })
+
+//add event listener to svg in header that, if clicked, rotates board 180deg (credit: Matt Sweeney for the idea)
+document.querySelector("#game header svg").addEventListener("click", ()=>{
+  document.querySelector("#gradientBorder").classList.toggle("rotate");
+})

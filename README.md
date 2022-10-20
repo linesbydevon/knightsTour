@@ -55,7 +55,7 @@ Your mission is simple—attempt to disable every single square on a grid size o
 
 #### For Devs
 
-Each square has a data attributes that include x and y axis values. Upon selecting a square to play, valid moves and invalid moves are reduced from the main nodelist of buttons to return a nested array. 
+Each square has data attributes for x and y axis values. Upon selecting a square to play, valid moves and invalid moves are reduced from the main nodelist of buttons to return a nested array. 
 
 ```
 let x = parseInt(e.currentTarget.dataset.x);
@@ -222,6 +222,13 @@ Note how this format still enables one to take advantage of the alpha value in r
 #### Lightmode
 
 Lightmode style guide is still in development. In the interim, the palette for lightmode is a simple inversion of the darkmode palette. 
+
+## Credits and resources used
+
+1. Matt Sweeney suggested the feature of enabling the game to rotate 180 degrees so users can play across from eachother on a flat surface and get different views of the board.
+2.[This article](https://alephnode.io/07-event-handler-binding) from *aleph node* helped me to solve an issue I was having on my gameBoard methods in which `this` was referencing the event object instead of the class itself.
+3. [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript) for general reference and examples of handling higher order functions, event listeners, and probably more.
+4. [W3 Schools](https://www.w3schools.com/) for alternative explanations of JS concepts in addition to CSS properties and animations. 
 
 ## Roadmap
 

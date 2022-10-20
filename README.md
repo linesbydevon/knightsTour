@@ -100,6 +100,39 @@ If the value of `this.moves` is equal to the size of the board then the user suc
 
 Battle head to head with a friend—or enemy—to determine who is the most cunning knight. The first player to run out of valid moves loses.
 
+#### For Devs
+
+The `player` and `opponent` values are set by the `setPlayer` method on the class on each turn. The conditional logic above is extended to each player's moves, however, they are pushed to properties on the `player` or `opponent` objects. Then on each turn, `this.validMoves` and `this.invalidMoves` is updated to reflect which player is taking a turn.
+
+```
+player.moves.push(e.currentTarget);
+this.moves.push(e.currentTarget);
+player.validMoves = knightMoves[0];
+player.invalidMoves = knightMoves[1];
+this.invalidMoves = [...this.moves, ...opponent.invalidMoves];
+```
+
+After each move, the method `isGameOver` evaluates a win condition for multiplayer as well. First, it checks to see if the opponent has valid moves absent the move the player already took. If the opponent doesn't, then the player wins. Then it checks the same for the player to see if the player made a losing move.
+
+```
+if(this.opponent.validMoves.length===0){
+  ... current player wins...
+}
+else if(this.opponent.validMoves.length===1 && 
+      this.player.moves.includes(this.opponent.validMoves[0])
+      ){
+  ... current player wins...
+} 
+else if(this.player.validMoves.length===0){
+  ... current opponent wins ...
+}
+else if(this.player.validMoves.length===1 && 
+      this.opponent.moves.includes(this.player.validMoves[0])
+      ){  
+  ... current opponent wins ...
+} 
+```
+
 ## Style guide
 
 Please adhere to these guidelines for the immediate future when developing new features or refactoring code.

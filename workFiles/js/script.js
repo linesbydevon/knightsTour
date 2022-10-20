@@ -125,18 +125,13 @@ class gameBoard{
   if(this.multiplayer){
       //determine who is player and who is opponent
       this.setPlayer();
-      
       //declare local player and opponent vars equal to set value on class
       let player=this.player;
       let opponent=this.opponent;
-      //remove disabled attribute of buttons considered invalid for previous player
+      //remove disabled attribute of buttons considered invalid for previous player (else basically everything will remain disabled)
       this.invalidMoves.forEach(elem=>elem.removeAttribute('disabled'));
       //add to player move;
       player.move++;
-      //validMoves = player valid moves
-      this.validMoves = player.validMoves;
-      //invalid moves is = to player invalid moves and opponent moves
-      this.invalidMoves = [...opponent.moves,...player.invalidMoves];
       //set attribute of current square to order, set inner html to span with player order and replace the x/y attributes with 'played'
       e.currentTarget.setAttribute("data-order", player.move);
       e.currentTarget.innerHTML = `<span>${player.move}</span>`;
@@ -154,7 +149,7 @@ class gameBoard{
       //update player's validMoves and invalidMoves then push them to class validMoves/invalidMoves
       player.validMoves = knightMoves[0];
       player.invalidMoves = knightMoves[1];
-      this.invalidMoves = [...player.moves, ...opponent.invalidMoves];
+      this.invalidMoves = [...this.moves, ...opponent.invalidMoves];
     }
     //single player
     else{

@@ -46,18 +46,6 @@ class gameBoard{
 
 A function called `makeGame` resets DOM elements, creates a new instance of a game class, and repopulates DOM elements when the page loads, the reset button is clicked, a new difficulty level is selected, or the user toggles multiplayer mode.
 
-After each move, the method `isGameOver` evaluates a simple win condition and simple lose condition detailed below.
-
-```
- if (this.move === this.size){
-        this.moves.forEach(elem=>elem.setAttribute('class','win'))
-      }
-      else if (this.validMoves.length===0){
-        this.moves.forEach(elem=>elem.setAttribute('class','lose'))
-      }
-```
-
-If the value of `this.moves` is equal to the size of the board then the user sucessfully navigated all squares. If, however, `this.validMoves` is empty then the user has trapped themselves before being able to disable all positions on the board. 
 
 ## How to play
 
@@ -95,6 +83,18 @@ let x = parseInt(e.currentTarget.dataset.x);
 In this case, `a[0]` contains valid moves and `a[1]` contains invalid moves. These are pushed to the `validMoves` and `invalidMoves` properties on the object each turn. 
 
 When a square is played, its x and y values are set to "played" so they won't be included in future options for valid moves. 
+
+After each move, the method `isGameOver` evaluates a simple win condition and simple lose condition detailed below.
+
+```
+if (this.move === this.size){
+  this.moves.forEach(elem=>elem.setAttribute('class','win'))
+} else if (this.validMoves.length===0){
+  this.moves.forEach(elem=>elem.setAttribute('class','lose'))
+}
+```
+
+If the value of `this.moves` is equal to the size of the board then the user sucessfully navigated all squares. If, however, `this.validMoves` is empty then the user has trapped themselves before being able to disable all positions on the board. 
 
 ### Multiplayer
 

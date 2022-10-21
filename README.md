@@ -88,13 +88,13 @@ After each move, the method `isGameOver` evaluates a simple win condition and si
 
 ```
 if (this.move === this.size){
-  this.moves.forEach(elem=>elem.setAttribute('class','win'))
+  ... win ...
 } else if (this.validMoves.length===0){
-  this.moves.forEach(elem=>elem.setAttribute('class','lose'))
+  ... lose ...
 }
 ```
 
-If the value of `this.moves` is equal to the size of the board then the user successfully navigated all squares. If, however, `this.validMoves` is empty then the user has trapped themselves before being able to disable all positions on the board. 
+If the value of `this.moves` is equal to the size of the board then the user successfully navigated all squares. If, however, `this.validMoves` is empty then the user has trapped themselves before being able to navigate all positions on the board. 
 
 ### Multiplayer
 
@@ -102,7 +102,7 @@ Battle head to head with a friend—or enemy—to determine who is the most cunn
 
 #### For Devs
 
-The `player` and `opponent` values are set by the `setPlayer` method on the class on each turn. The conditional logic above is extended to each player's moves, however, they are pushed to properties on the `player` or `opponent` objects. Then on each turn, `this.validMoves` and `this.invalidMoves` is updated to reflect which player is taking a turn.
+The `player` and `opponent` values are set by the `setPlayer` method on each turn. The conditional logic evaluating x and y data values is extended to each player's moves, however, they are pushed to properties on the `player` or `opponent` objects. Then `this.invalidMoves` is updated to reflect which player is taking a turn and which squares need to be disabled in the DOM.
 
 ```
 player.moves.push(e.currentTarget);
@@ -112,7 +112,7 @@ player.invalidMoves = knightMoves[1];
 this.invalidMoves = [...this.moves, ...opponent.invalidMoves];
 ```
 
-After each move, the method `isGameOver` evaluates a win condition for multiplayer as well. First, it checks to see if the opponent has valid moves absent the move the player already took. If the opponent doesn't, then the player wins. Then it checks the same for the player to see if the player made a losing move.
+After each move, the method `isGameOver` evaluates a win condition for multiplayer as well. First, it checks to see if the opponent has valid moves absent the move the player already took. If the opponent doesn't, then the player wins. Then it checks the same conditions for the player.
 
 ```
 if(this.opponent.validMoves.length===0){
